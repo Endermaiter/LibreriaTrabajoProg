@@ -24,7 +24,16 @@ public class Libreria {
     public static PreparedStatement ps = null;
     public static DefaultTableModel modelo;
     public static ResultSet rs;
+    public static Libreria instancia;
+    public static Connection con;
 
+    public static Libreria getInstance(){
+        if(instancia == null){
+            instancia = new Libreria();
+        }
+        return instancia;
+    }
+    
     public static Connection establecerConexionBD() {
         Connection con = null;
 
@@ -43,7 +52,7 @@ public class Libreria {
         try {
 
             //base de datos
-            con = establecerConexionBD();
+            con = getInstance().establecerConexionBD();
             ps = (PreparedStatement) con.prepareStatement("SELECT * FROM reservas");
             rs = ps.executeQuery();
 
